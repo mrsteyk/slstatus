@@ -23,7 +23,7 @@ static const char unknown_str[] = "n/a";
  * datetime            date and time                   format string (%F %T)
  * disk_free           free disk space in GB           mountpoint path (/)
  * disk_perc           disk usage in percent           mountpoint path (/)
- * disk_total          total disk space in GB          mountpoint path (/")
+ * disk_total          total disk space in GB          mountpoint path (/)
  * disk_used           used disk space in GB           mountpoint path (/)
  * entropy             available entropy               NULL
  * gid                 GID of current user             NULL
@@ -63,7 +63,20 @@ static const char unknown_str[] = "n/a";
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
+#define SEPARATOR { separator, " | ", NULL }
 static const struct arg args[] = {
-	/* function format          argument */
-	{ datetime, "%s",           "%F %T" },
+	/* function           format          argument */
+	SEPARATOR,
+	{ wifi_essid,         "%s ",          "wlan0" },
+	{ wifi_perc,          "%s%%",         "wlan0" },
+	SEPARATOR,
+	{ battery_perc,       "%s%% ",        "BAT1" },
+	{ battery_remaining,  "%s",           "BAT1" },
+	SEPARATOR,
+	{ ram_perc,           "%s%% ",        NULL },
+	{ cpu_perc,           "%s%%",         NULL },
+	SEPARATOR,
+	{ keymap,             "%s",           NULL },
+	SEPARATOR,
+	{ datetime,           "%s",           "%F %T" },
 };
